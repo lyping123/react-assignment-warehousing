@@ -50,6 +50,10 @@
   }
 }
 
+body {
+  margin: 0;
+}
+
 #root {
   width: 1126px;
   max-width: 100%;
@@ -60,10 +64,6 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
 }
 
 h1,
@@ -108,4 +108,21 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+.image-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.image {
+  display: block;
+  max-width: 300px;
+  height: auto;
+}
+.image-border {
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 4px;
 }
