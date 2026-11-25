@@ -1,30 +1,49 @@
-import React, { useState, useEffect } from 'react';
- import Table from './components/table.jsx';
- import AlertBox from './alert.jsx';
- export default function StockPage() {
-     const [tableData, setTableData] = useState([]);
-     const [alertMsg, setAlertMsg] = useState({show:false, type:"", msg:""});
-     const products = [
-         { id:1001, name:"Wireless Mouse", category:"Electronics", quantity:120, price:25.5 },
-         { id:1002, name:"Keyboard", category:"Electronics", quantity:8, price:45.0 },
-         { id:1003, name:"Office Chair", category:"Furniture", quantity:0, price:180.0 },
-         { id:1004, name:"Monitor", category:"Electronics", quantity:25, price:350.0 }
-     ];
-     useEffect(() => {
-         setTableData(products);
-     }, []);
-     const columns = [
-         { header: "Product ID", accessor: "id" },
-         { header: "Product Name", accessor: "name" },
-         { header: "Category", accessor: "category" },
-         { header: "Current Stock", accessor: "quantity" },
-         { header: "Price (RM)", accessor: "price" }
-     ];
-     return (
-         <>
-             <h1>Stock Management</h1>
-             <AlertBox props={alertMsg} />
-             <Table data={tableData} columns={columns} />
-         </>
-     );
- }
+import { useState } from "react";
+import Table from "./components/table.jsx";
+import Alert from "./alert.jsx";
+
+export default function StockPage({ products, onRemoveProduct, onStockIn }) {
+  const [alert, setAlert] = useState({ show: false, type: "", msg: "" });
+
+  const handleStockIn = (id, quantity) => {
+    onStockIn(id, quantity);
+    setAlert({
+      show: true,
+      type: "success",
+      msg: `Stock updated successfully. ${quantity} unit${quantity === 1 ? "" : "s"} added.`,
+    });
+  };
+
+  const handleRemoveProduct = (id) => {
+    onRemoveProduct(id);
+    setAlert({ show: true, type: "success", msg: "Product removed successfully." });
+  };
+
+  const columns = [
+    { header: "Product ID", accessor: "id" },
+    { header: "Product Name", accessor: "name" },
+    { header: "Category", accessor: "category" },
+    { header: "Current Stock", accessor: "quantity" },
+    {
+      header: "Price (RM)",
+      accessor: "price",
+      render: (price) => Number(price).toFixed(2),
+    },
+  ];
+
+  return (
+    <main className="container py-4">
+      <h1 className="h2 mb-0">Stock Management</h1>
+      <p className="text-muted mt-2">Receive stock and keep inventory quantities up to date.</p>
+      <div className="mt-3">
+        <Alert props={alert} />
+      </div>
+      <Table
+        data={products}
+        columns={columns}
+        onRemove={handleRemoveProduct}
+        onStockIn={handleStockIn}
+      />
+    </main>
+  );
+}

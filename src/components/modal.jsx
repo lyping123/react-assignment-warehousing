@@ -1,43 +1,28 @@
-import { useState, useEffect } from "react";
+export default function Modal({ open, title, onClose, children, footer }) {
+  if (!open) {
+    return null;
+  }
 
-export default function Modal({ data }) {
-    const [modalData, setModalData] = useState(data);
-
-    useEffect(() => {
-        setModalData(data);
-    }, [data]);
-
-    const saveChanges = () => {
-        alert("Changes saved: " + JSON.stringify(modalData));
-    }
-
-    return (
-        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Customize header</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        {data ? (
-                            Object.entries(modalData).map(([key, value]) => (
-
-                                <div className="form-group" key={key}>
-                                    <label htmlFor={key}>{key}:</label>
-                                    <input type="text" className="form-control" onChange={(e) => setModalData({ ...modalData, [key]: e.target.value })} id={key} value={value} />
-                                </div>
-                            ))
-                        ) : (
-                            <p>No data available</p>
-                        )}
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary" onClick={saveChanges}>Save changes</button>
-                    </div>
-                </div>
+  return (
+    <>
+      <div className="modal fade show d-block" role="dialog" aria-modal="true">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">{title}</h5>
+              <button
+                type="button"
+                className="btn-close"
+                aria-label="Close"
+                onClick={onClose}
+              />
             </div>
+            <div className="modal-body">{children}</div>
+            {footer && <div className="modal-footer">{footer}</div>}
+          </div>
         </div>
-    )
+      </div>
+      <div className="modal-backdrop fade show" onClick={onClose} />
+    </>
+  );
 }
