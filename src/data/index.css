@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f6f9;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-card {
+  border: none;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+}
+
+.dashboard-icon {
+  font-size: 50px;
+}
+
+.navbar .nav-link.active {
+  color: #ffffff !important;
+  font-weight: bold;
+}
+
+.card {
+  border-radius: 12px;
+}
