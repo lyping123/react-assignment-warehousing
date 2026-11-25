@@ -2,10 +2,27 @@
   box-sizing: border-box;
 }
 
+/* Website Background */
+
 body {
-  margin: 0;
-  background-color: #000000;
-  font-family: Arial, sans-serif;
+  background-image: url("../assets/backrooms-cat.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Main Background */
+
+#root {
+  min-height: 100vh;
+}
+
+/* Transparent Page Background */
+
+.container {
+  background: transparent;
 }
 
 h2{
@@ -33,5 +50,14 @@ h2{
 }
 
 .card {
+  background: rgba(255, 255, 255, 0.35) !important;
+
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+
   border-radius: 12px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
