@@ -64,7 +64,7 @@ function StockModal({
                 </div>
 
                 {currentProduct && (
-                  <div className="alert alert-light border py-2 mb-3">
+                  <div className="bg-body-tertiary border rounded px-3 py-2 mb-3">
                     Current Available Stock:{' '}
                     <strong>{currentProduct.quantity}</strong>
                   </div>

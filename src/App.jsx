@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import initialProducts from './data/products'
 import Navbar from './components/Navbar'
@@ -7,6 +7,15 @@ import StockPage from './pages/StockPage'
 
 function App() {
   const [products, setProducts] = useState(initialProducts)
+  const [theme, setTheme] = useState('light')
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-bs-theme', theme)
+  }, [theme])
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))
+  }
 
   const handleAddProduct = (newProduct) => {
     setProducts((prev) => {
@@ -33,7 +42,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar theme={theme} onToggleTheme={handleToggleTheme} />
       <Routes>
         <Route
           path="/"

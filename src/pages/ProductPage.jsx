@@ -103,14 +103,14 @@ function ProductPage({ products, onAddProduct, onRemoveProduct }) {
 
       {/* Search & Product Table Card */}
       <div className="card border-0 shadow-sm">
-        <div className="card-header bg-white py-3">
+        <div className="card-header bg-body py-3">
           <div className="row align-items-center g-2">
             <div className="col-md-6">
               <h5 className="mb-0">Product List</h5>
             </div>
             <div className="col-md-6">
               <div className="input-group">
-                <span className="input-group-text bg-white">
+                <span className="input-group-text bg-body">
                   <i className="bi bi-search text-muted"></i>
                 </span>
                 <input

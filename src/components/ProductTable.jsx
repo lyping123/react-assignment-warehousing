@@ -12,7 +12,7 @@ function ProductTable({ products, onRemove, onStockAction }) {
   return (
     <div className="table-responsive">
       <table className="table table-hover align-middle mb-0">
-        <thead className="table-light">
+        <thead>
           <tr>
             <th>Product ID</th>
             <th>Product Name</th>

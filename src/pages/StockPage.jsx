@@ -110,7 +110,7 @@ function StockPage({ products, onUpdateStock }) {
 
       {/* Stock Table Card */}
       <div className="card border-0 shadow-sm">
-        <div className="card-header bg-white py-3">
+        <div className="card-header bg-body py-3">
           <h5 className="mb-0">Current Stock Levels</h5>
         </div>
         <div className="card-body p-0">
