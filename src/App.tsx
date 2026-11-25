@@ -1,7 +1,22 @@
+/** @jsxRuntime classic */
+import * as React from 'react'
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      [elementName: string]: any
+    }
+  }
+}
+
+const heroImg =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 179'%3E%3Crect width='170' height='179' rx='18' fill='%23f1f5f9'/%3E%3Cpath d='M30 78 85 42l55 36v63H30z' fill='%23646cff'/%3E%3Cpath d='M68 141V99h34v42M45 87h80' fill='none' stroke='white' stroke-width='8'/%3E%3C/svg%3E"
+const reactLogo =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='50' rx='44' ry='17' fill='none' stroke='%2361dafb' stroke-width='5'/%3E%3Cellipse cx='50' cy='50' rx='44' ry='17' fill='none' stroke='%2361dafb' stroke-width='5' transform='rotate(60 50 50)'/%3E%3Cellipse cx='50' cy='50' rx='44' ry='17' fill='none' stroke='%2361dafb' stroke-width='5' transform='rotate(120 50 50)'/%3E%3Ccircle cx='50' cy='50' r='7' fill='%2361dafb'/%3E%3C/svg%3E"
+const viteLogo =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23646cff' d='M58 4 18 56h27l-5 40 42-56H54z'/%3E%3C/svg%3E"
+// @ts-expect-error CSS imports are handled by the bundler.
 import './App.css'
 
 function App() {
@@ -24,7 +39,7 @@ function App() {
         <button
           type="button"
           className="counter"
-          onClick={() => setCount((count) => count + 1)}
+          onClick={() => setCount((count: number) => count + 1)}
         >
           Count is {count}
         </button>
