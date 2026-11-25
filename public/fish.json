@@ -1,0 +1,37 @@
+{
+  "warehouseProducts": [
+    {
+      "id": 1001,
+      "name": "Wireless Mouse",
+      "category": "Office Supplies",
+      "quantity": 120,
+      "price": 18.0,
+      "image":"https://www.gadgetzone.com.my/product/logitech-m196-bluetooth-mouse---graphite"
+    },
+    {
+      "id": 1002,
+      "name": "Notebook",
+      "category": "Stationery",
+      "quantity": 130,
+      "price": 4.50,
+      "image": "https://smstationery.com.ph/products/advance-color-coding-writing-notebook-80lvs-pack-of-7?srsltid=AYCX9vKK5JyhOzp21hdQ0ludjWZnGl3pvw9DM_LJK9fHTXnL_SzyL_23"
+    },
+    {
+      "id": 1003,
+      "name": "Office Chair",
+      "category": "Furniture",
+      "quantity": 90,
+      "price": 120.0,
+      "image": "https://klasthome.com/eu/desk-chairs/3687-beige-desk-chair-with-white-legs"
+    },
+    {
+      "id": 1004,
+      "name": "Box of Pens",
+      "category": "Stationery",
+      "quantity": 300,
+      "price": 6.0,
+      "image":"https://klasthome.com/eu/desk-chairs/3687-beige-desk-chair-with-white-legs"
+    }
+  
+]
+}
