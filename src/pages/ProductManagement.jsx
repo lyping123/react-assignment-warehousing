@@ -111,7 +111,7 @@ function ProductManagement({ products, setProducts }) {
 
       <h2 className="fw-bold">Product Management</h2>
 
-      <p className="text-muted">
+      <p style={{ color: '#ffffff' }}>
         Manage all warehouse products here.
       </p>
 

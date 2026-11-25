@@ -4,9 +4,14 @@
 
 body {
   margin: 0;
-  background-color: #f4f6f9;
+  background-color: #000000;
   font-family: Arial, sans-serif;
 }
+
+h2{
+  color: #ffffff;
+}
+
 
 .dashboard-card {
   border: none;
