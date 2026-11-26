@@ -1,38 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import ProductTable from './productstable.jsx';
+import ProductsPage from './productspage.jsx';
+import StockPage from './stockpage.jsx';
 
 function Head(props) {
-    const products = [
-  {
-    id: 1001,
-    name: "Wireless Mouse",
-    category: "Electronics",
-    quantity: 120,
-    price: 25.5,
-  },
-  {
-    id: 1002,
-    name: "Keyboard",
-    category: "Electronics",
-    quantity: 8,
-    price: 45.0,
-  },
-  {
-    id: 1003,
-    name: "Office Chair",
-    category: "Furniture",
-    quantity: 0,
-    price: 180.0,
-  },
-  {
-    id: 1004,
-    name: "Monitor",
-    category: "Electronics",
-    quantity: 25,
-    price: 350.0,
-  },
-];
+    const [products, setProducts] = useState([
+    {
+        id: 1001,
+        name: "Wireless Mouse",
+        category: "Electronics",
+        quantity: 120,
+        price: 25.5,
+    },
+    {
+        id: 1002,
+        name: "Keyboard",
+        category: "Electronics",
+        quantity: 8,
+        price: 45.0,
+    },
+    {
+        id: 1003,
+        name: "Office Chair",
+        category: "Furniture",
+        quantity: 0,
+        price: 180.0,
+    },
+    {
+        id: 1004,
+        name: "Monitor",
+        category: "Electronics",
+        quantity: 25,
+        price: 350.0,
+    },
+]);
+const [alert, setAlert] = useState({ show: false, type: "", message: "" });
+
+const showAlert = (type, message) => {
+  setAlert({ show: true, type, message });
+  setTimeout(() => setAlert({ show: false, type: "", message: "" }), 3000);
+};
 const onRemove = (product) => {
   const index = products.findIndex((p) => p.id === product.id);
     if (index !== -1) {
@@ -50,7 +57,8 @@ const onRemove = (product) => {
             }
         });
     };
-
+    
+   
 
     const title = props.title;
     return (
@@ -66,7 +74,7 @@ const onRemove = (product) => {
 
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link" aria-current="page" onClick={() => setActiveNav('/productstable')} to="/productstable">Home</Link>
+                                    <Link className="nav-link" aria-current="page" onClick={() => setActiveNav('/products')} to="/products">Home</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" onClick={() => setActiveNav('/stock')} to="/stock">Stock
@@ -78,7 +86,8 @@ const onRemove = (product) => {
                 </nav>
                 <Routes>
                   
-                    <Route path="/productstable" element={<ProductTable products={products} onRemove={onRemove} />} />
+                    <Route path="/products" element={<ProductsPage products={products} setProducts={setProducts} showAlert={showAlert} />} />
+                    <Route path="/stock" element={<StockPage products={products} setProducts={setProducts} showAlert={showAlert} />} />
                 
                 </Routes>
             </BrowserRouter>
