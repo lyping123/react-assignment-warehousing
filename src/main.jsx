@@ -1,18 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import './index.css'
-import { Head } from './Head.jsx';
-import Footer from './footer.jsx';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
-
   <StrictMode>
-    <Head title="fish market" />
-
-
-    <Footer />
-  </StrictMode>
+    <App />
+  </StrictMode>,
 )

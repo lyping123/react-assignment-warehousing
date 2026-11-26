@@ -1,122 +1,105 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useEffect, useState } from 'react'
+import { BrowserRouter, Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import AlertBox from './components/AlertBox.jsx'
+import ProductPage from './pages/ProductPage.jsx'
+import StockPage from './pages/StockPage.jsx'
+import { initialProducts } from './data/initialProducts.js'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function AppLayout({ products, onAddProduct, onRemoveProduct, onUpdateStock, alert, onDismissAlert }) {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-shell">
+      <header className="topbar">
+        <div className="container app-container d-flex align-items-center justify-content-between">
+          <NavLink className="brand" to="/products" aria-label="Warehouse home">
+            <span className="brand-mark"><i className="bi bi-box-seam" aria-hidden="true" /></span>
+            <span>Stockroom<span className="brand-period">.</span></span>
+          </NavLink>
+          <nav className="main-nav" aria-label="Main navigation">
+            <NavLink to="/products" className={({ isActive }) => `nav-item-link${isActive ? ' active' : ''}`}>
+              Products
+            </NavLink>
+            <NavLink to="/stock" className={({ isActive }) => `nav-item-link${isActive ? ' active' : ''}`}>
+              Stock
+            </NavLink>
+          </nav>
+          <div className="warehouse-chip"><span className="status-dot" /> Main Warehouse</div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
+      <main className="container app-container app-main">
+        <AlertBox alert={alert} onDismiss={onDismissAlert} />
+        <Routes>
+          <Route path="/" element={<Navigate to="/products" replace />} />
+          <Route
+            path="/products"
+            element={<ProductPage products={products} onAddProduct={onAddProduct} onRemoveProduct={onRemoveProduct} />}
+          />
+          <Route path="/stock" element={<StockPage products={products} onUpdateStock={onUpdateStock} />} />
+          <Route path="*" element={<Navigate to="/products" replace />} />
+        </Routes>
+      </main>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <footer className="app-footer">
+        <div className="container app-container d-flex justify-content-between">
+          <span>Stockroom Inventory</span>
+          <span>Inventory overview <span className="footer-separator">/</span> {products.length} products</span>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      </footer>
+    </div>
   )
 }
 
-export default App
+export default function App() {
+  const [products, setProducts] = useState(initialProducts)
+  const [alert, setAlert] = useState(null)
+
+  useEffect(() => {
+    if (!alert) return undefined
+    const timer = window.setTimeout(() => setAlert(null), 5000)
+    return () => window.clearTimeout(timer)
+  }, [alert])
+
+  const showAlert = (type, message) => setAlert({ type, message, id: Date.now() })
+
+  const addProduct = (product) => {
+    setProducts((current) => [...current, { ...product, id: Math.max(1000, ...current.map((item) => item.id)) + 1 }])
+    showAlert('success', 'Product added to your inventory.')
+  }
+
+  const removeProduct = (product) => {
+    setProducts((current) => current.filter((item) => item.id !== product.id))
+    showAlert('success', `${product.name} was removed from your inventory.`)
+  }
+
+  const updateStock = (productId, movement, quantity) => {
+    const product = products.find((item) => item.id === productId)
+    if (!product) {
+      showAlert('danger', 'The selected product could not be found.')
+      return
+    }
+    if (movement === 'out' && quantity > product.quantity) {
+      showAlert('danger', `Only ${product.quantity} units of ${product.name} are available.`)
+      return
+    }
+
+    setProducts((current) => current.map((item) => {
+      if (item.id !== productId) return item
+      return { ...item, quantity: item.quantity + (movement === 'in' ? quantity : -quantity) }
+    }))
+    showAlert('success', `${quantity} units ${movement === 'in' ? 'added to' : 'removed from'} ${product.name}.`)
+  }
+
+  return (
+    <BrowserRouter>
+      <AppLayout
+        products={products}
+        onAddProduct={addProduct}
+        onRemoveProduct={removeProduct}
+        onUpdateStock={updateStock}
+        alert={alert}
+        onDismissAlert={() => setAlert(null)}
+      />
+    </BrowserRouter>
+  )
+}
