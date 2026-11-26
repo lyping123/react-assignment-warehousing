@@ -22,7 +22,6 @@ export default function ProductModal({ show, products, onClose, onAdd }) {
 
   return (
     <div className="modal d-block" role="dialog" aria-modal="true">
-      <div className="modal-backdrop show"></div>
       <div className="modal-dialog modal-dialog-centered">
         <form className="modal-content" onSubmit={handleSubmit}>
           <div className="modal-header">

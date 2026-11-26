@@ -14,6 +14,22 @@ const initialProducts = [
   { id: 1004, name: 'Monitor', category: 'Electronics', quantity: 25, price: 350 },
 ];
 
+function getProductIcon(product) {
+  const name = product.name.toLowerCase();
+  if (name.includes('mouse')) return '🖱️';
+  if (name.includes('keyboard')) return '⌨️';
+  if (name.includes('chair')) return '🪑';
+  if (name.includes('monitor') || name.includes('screen')) return '🖥️';
+  if (name.includes('laptop')) return '💻';
+  if (name.includes('phone')) return '📱';
+  if (name.includes('headphone')) return '🎧';
+
+  const category = product.category.toLowerCase();
+  if (category.includes('electronic')) return '🔌';
+  if (category.includes('furniture')) return '🪑';
+  return '📦';
+}
+
 function StatusBadge({ quantity }) {
   if (quantity === 0) return <span className="badge text-bg-danger">Out of Stock</span>;
   if (quantity <= 10) return <span className="badge text-bg-warning">Low Stock</span>;
@@ -52,9 +68,16 @@ function AppShell() {
   };
 
   const removeProduct = () => {
+    if (!selectedProduct) return;
     setProducts((current) => current.filter((product) => product.id !== selectedProduct.id));
     setAlert({ type: 'success', message: `${selectedProduct.name} was removed successfully.` });
     setShowConfirmModal(false);
+    setSelectedProduct(null);
+  };
+
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+    setSelectedProduct(null);
   };
 
   const openStock = (product) => {
@@ -127,12 +150,17 @@ function AppShell() {
                 <div className="row g-3">
                   {products.map((product) => (
                     <div className="col-md-6 col-xl-4" key={product.id}>
-                      <div className="card h-100">
+                      <div className="card stock-card h-100">
                         <div className="card-body">
-                          <div className="d-flex justify-content-between align-items-start">
-                            <div>
-                              <h2 className="h5">{product.name}</h2>
-                              <p className="text-secondary mb-2">ID: {product.id}</p>
+                          <div className="d-flex justify-content-between align-items-start gap-2">
+                            <div className="d-flex align-items-center gap-3">
+                              <span className="stock-card__item" role="img" aria-label={`${product.name} icon`}>
+                                {getProductIcon(product)}
+                              </span>
+                              <div>
+                                <h2 className="h5">{product.name}</h2>
+                                <p className="text-secondary mb-2">ID: {product.id}</p>
+                              </div>
                             </div>
                             <StatusBadge quantity={product.quantity} />
                           </div>
@@ -155,7 +183,7 @@ function AppShell() {
       </footer>
 
       <ProductModal show={showProductModal} products={products} onClose={() => setShowProductModal(false)} onAdd={addProduct} />
-      <ConfirmModal show={showConfirmModal} product={selectedProduct} onClose={() => setShowConfirmModal(false)} onConfirm={removeProduct} />
+      <ConfirmModal show={showConfirmModal} product={selectedProduct} onClose={closeConfirmModal} onConfirm={removeProduct} />
       <StockModal show={showStockModal} product={selectedProduct} onClose={() => setShowStockModal(false)} onUpdate={updateStock} onAlert={setAlert} />
     </>
   );

@@ -7,3 +7,38 @@ body,
   display: flex;
   flex-direction: column;
 }
+
+.stock-card {
+  border: 2px solid #b9854a;
+  border-radius: 0.75rem;
+  background: linear-gradient(145deg, rgba(255, 247, 230, 0.96), rgba(235, 203, 151, 0.96));
+  box-shadow: 0 0.4rem 0 #9e6d3e, 0 0.7rem 1rem rgba(58, 38, 17, 0.18);
+  color: #4b321b;
+}
+
+.stock-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stock-card h2 {
+  color: #4b321b;
+}
+
+.stock-card__item {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 auto;
+  border: 1px solid rgba(153, 99, 49, 0.3);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.48);
+  font-size: 2rem;
+}
+
+.stock-card .display-6 {
+  color: #7a4c24;
+  font-weight: 600;
+}

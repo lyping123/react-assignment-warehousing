@@ -32,7 +32,6 @@ export default function StockModal({ show, product, onClose, onUpdate, onAlert }
 
   return (
     <div className="modal d-block" role="dialog" aria-modal="true">
-      <div className="modal-backdrop show"></div>
       <div className="modal-dialog modal-dialog-centered">
         <form className="modal-content" onSubmit={submit}>
           <div className="modal-header">
