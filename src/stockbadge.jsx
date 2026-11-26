@@ -5,4 +5,3 @@ export default function StockBadge({ quantity }) {
   if (quantity <= 10) return <Badge bg="warning" text="dark">Low Stock</Badge>;
   return <Badge bg="success">In Stock</Badge>;
 }
-a

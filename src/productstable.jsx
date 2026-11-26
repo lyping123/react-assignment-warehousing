@@ -2,6 +2,8 @@ import { Table, Button } from "react-bootstrap";
 import StockBadge from "./StockBadge";
 
 export default function ProductTable({ products, onRemove }) {
+
+    
   return (
     <div className="table-responsive">
       <Table striped hover bordered className="align-middle">
